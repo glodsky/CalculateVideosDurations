@@ -69,7 +69,7 @@ def main():
     videos_infor = []
     regex = r"Duration:.+(\d\d:\d\d:\d\d\.\d\d)"
     
-    curdir = input("Please input one video dir : ")
+    curdir = input("video dir : ")
     videofiles = get_videofiles(curdir)
     for file_name in videofiles:
         output = get_output(file_name)
@@ -84,14 +84,15 @@ def main():
         match = re.search(regex, target)
         if match:
             duration = match.group(1)                     
-            videos_infor.append("%20s    %s"%(basename, duration))
+            videos_infor.append("%-20s  %5s"%(basename, duration))
             durations.append(duration)
             
     #sleep(1.5)
     for x in videos_infor:
         print(x)
     # manually format total from seconds due to lack of timedelta.strftime()
-    print("========================\n")
+    print("\n========================")
+    print("Total Files : %s"%len(videofiles))
     total = calculate_total(durations).total_seconds()
     minutes, seconds = divmod(total, 60)
     hours, minutes = divmod(minutes, 60)
